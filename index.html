@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christmas Tree</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100%;
+            background-color: #001f2d;
+        }
+        #spline-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .snow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+            opacity: 0.5;
+        }
+        .snowflakes {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            z-index: 1000;
+            pointer-events: none;
+            animation: snow 10s linear infinite;
+        }
+        .snowflakes div {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            width: 6px;
+            height: 6px;
+            opacity: 0.8;
+            animation: fall 10s infinite linear;
+        }
+
+        @keyframes snow {
+            0% { transform: translateY(-10px); }
+            100% { transform: translateY(100vh); }
+        }
+        @keyframes fall {
+            0% { transform: translateY(-50px); }
+            100% { transform: translateY(100vh); }
+        }
+    </style>
+</head>
+<body>
+
+    
+    <!-- Audio player for music -->
+    <audio autoplay loop>
+        <source src="Song.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div id="spline-container">
+        <iframe src="https://my.spline.design/christmastree-c0ec753b34ad11fc7921ee6d6ba16261/" frameborder="0" width="100%" height="100%" allow="fullscreen"></iframe>
+    </div>
+    <div class="snow">
+        <div class="snowflakes"></div>
+    </div>
+
+    <script>
+        const snowflakesContainer = document.querySelector('.snowflakes');
+        for (let i = 0; i < 100; i++) {
+            const snowflake = document.createElement('div');
+            snowflake.style.animationDuration = `${Math.random() * 5 + 5}s`;  // Random fall speed
+            snowflake.style.left = `${Math.random() * 100}%`;  // Random horizontal position
+            snowflake.style.animationDelay = `${Math.random() * 5}s`;  // Random delay
+            snowflakesContainer.appendChild(snowflake);
+        }
+    </script>
+</body>
+</html>
