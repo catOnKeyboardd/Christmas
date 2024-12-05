@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Christmas Tree</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
     <style>
         body, html {
             margin: 0;
@@ -11,6 +13,7 @@
             overflow: hidden;
             height: 100%;
             background-color: #001f2d;
+            font-family: 'Poppins', sans-serif;
         }
         #spline-container {
             position: absolute;
@@ -46,7 +49,6 @@
             opacity: 0.8;
             animation: fall 10s infinite linear;
         }
-
         @keyframes snow {
             0% { transform: translateY(-10px); }
             100% { transform: translateY(100vh); }
@@ -55,33 +57,71 @@
             0% { transform: translateY(-50px); }
             100% { transform: translateY(100vh); }
         }
+        #audio-control-button {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1001;
+            cursor: pointer;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 50%;
+            padding: 10px;
+            color: white;
+            font-size: 30px;
+        }
+        .speaker-icon {
+            width: 30px;
+            height: 30px;
+        }
+        #happy-holidays {
+            position: fixed;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 40px;
+            color: #FFD700;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+        }
     </style>
 </head>
 <body>
-
-    
-    <!-- Audio player for music -->
-    <audio autoplay loop>
+    <audio id="background-music" loop>
         <source src="Song.mp3" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
-
+    <div id="audio-control-button">
+        <i id="speaker-icon" class="fas fa-volume-mute"></i>
+    </div>
+    <div id="happy-holidays">Happy Holidays!</div>
     <div id="spline-container">
         <iframe src="https://my.spline.design/christmastree-c0ec753b34ad11fc7921ee6d6ba16261/" frameborder="0" width="100%" height="100%" allow="fullscreen"></iframe>
     </div>
     <div class="snow">
         <div class="snowflakes"></div>
     </div>
-
     <script>
-        const snowflakesContainer = document.querySelector('.snowflakes');
-        for (let i = 0; i < 100; i++) {
-            const snowflake = document.createElement('div');
-            snowflake.style.animationDuration = `${Math.random() * 5 + 5}s`;  // Random fall speed
-            snowflake.style.left = `${Math.random() * 100}%`;  // Random horizontal position
-            snowflake.style.animationDelay = `${Math.random() * 5}s`;  // Random delay
-            snowflakesContainer.appendChild(snowflake);
-        }
+        const music = document.getElementById('background-music');
+        const audioControlButton = document.getElementById('audio-control-button');
+        const speakerIcon = document.getElementById('speaker-icon');
+        let isPlaying = false;
+
+        audioControlButton.addEventListener('click', () => {
+            if (isPlaying) {
+                music.pause();
+                speakerIcon.classList.remove('fa-volume-up');
+                speakerIcon.classList.add('fa-volume-mute');
+            } else {
+                music.play().catch((error) => {
+                    console.error('Audio playback failed:', error);
+                });
+                speakerIcon.classList.remove('fa-volume-mute');
+                speakerIcon.classList.add('fa-volume-up');
+            }
+            isPlaying = !isPlaying;
+        });
+
+        music.pause();
     </script>
 </body>
 </html>
