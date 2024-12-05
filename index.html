@@ -1,10 +1,11 @@
+
+You said:
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Christmas Tree</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <title>Noise Displace</title>
     <style>
         body, html {
             margin: 0;
@@ -12,7 +13,6 @@
             overflow: hidden;
             height: 100%;
             background-color: #001f2d;
-            font-family: 'Poppins', sans-serif;
         }
         #spline-container {
             position: absolute;
@@ -20,18 +20,26 @@
             left: 0;
             width: 100%;
             height: 100%;
+            background-color: rgba(0, 0, 0, 0);
         }
         #audio-control-button {
             position: fixed;
             top: 10px;
             right: 10px;
-            z-index: 1001;
-            cursor: pointer;
-            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 100;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
             color: white;
-            font-size: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 20px;
+        }
+        canvas {
+            display: block;
         }
     </style>
 </head>
@@ -40,29 +48,34 @@
         <source src="Song.mp3" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
-    <div id="audio-control-button">🔇</div>
+    <div id="audio-control-button">🔊</div>
     <div id="spline-container">
-        <iframe src="https://my.spline.design/christmastree-c0ec753b34ad11fc7921ee6d6ba16261/" frameborder="0" width="100%" height="100%" allow="fullscreen"></iframe>
+        <iframe 
+            src="https://my.spline.design/christmastree-c0ec753b34ad11fc7921ee6d6ba16261/" 
+            frameborder="0" 
+            width="100%" 
+            height="100%" 
+            allow="fullscreen">
+        </iframe>
     </div>
     <script>
-        const music = document.getElementById('background-music');
+        const audio = document.getElementById('background-music');
         const audioControlButton = document.getElementById('audio-control-button');
         let isPlaying = false;
 
         audioControlButton.addEventListener('click', () => {
             if (isPlaying) {
-                music.pause();
-                audioControlButton.textContent = '🔇';
+                audio.pause();
+                audioControlButton.textContent = "🔊";
             } else {
-                music.play().catch((error) => {
-                    console.error('Audio playback failed:', error);
-                });
-                audioControlButton.textContent = '🔊';
+                audio.play().catch(err => console.error("Audio playback error:", err));
+                audioControlButton.textContent = "🔇";
             }
             isPlaying = !isPlaying;
         });
-
-        music.pause();
     </script>
 </body>
 </html>
+
+
+   
